@@ -4,6 +4,8 @@
 */
 
 #include "hashmap.h"
+#include <algorithm>
+#include <vector>
 
 template <typename K, typename M, typename H>
 HashMap<K, M, H>::HashMap() : 
@@ -262,5 +264,53 @@ std::ostream& operator<<(std::ostream& os, const HashMap<K, M, H>& rhs) {
 }
 
 /* Begin Milestone 2: Special Member Functions */
+
+template <typename K, typename M, typename H>
+HashMap<K, M, H>::HashMap(const HashMap<K, M, H>& other) : 
+    HashMap(other.bucket_count(), other._hash_function) {
+        for (const auto [key, value] : other) {
+            insert({key, value});
+        }
+}
+
+template <typename K, typename M, typename H>
+HashMap<K, M, H>& HashMap<K, M, H>::operator=(const HashMap<K, M, H>& other) {
+    if (this != &other) {
+        clear();
+        _hash_function = other._hash_function;
+        for (const auto [key, value] : other) {
+            insert({key, value});
+        }
+    }
+    return *this;
+}
+
+template <typename K, typename M, typename H>
+HashMap<K, M, H>::HashMap(HashMap<K, M, H>&& other) :
+    _size{std::move(other._size)},
+    _hash_function{std::move(other._hash_function)},
+    _buckets_array{other.bucket_count(), nullptr} {
+        for (int i = 0; i < other.bucket_count(); ++i) {
+            _buckets_array[i] = std::move(other._buckets_array[i]);
+            other._buckets_array[i] = nullptr;
+        }
+        /* other._size = 0; */
+}
+
+template <typename K, typename M, typename H>
+HashMap<K, M, H>& HashMap<K, M, H>::operator=(HashMap<K, M, H>&& other) {
+    if (this != &other) {
+        clear();
+        _size = std::move(other._size);
+        _hash_function = std::move(other._hash_function);
+        _buckets_array.resize(other.bucket_count());
+        for (int i = 0; i < other.bucket_count(); ++i) {
+            _buckets_array[i] = std::move(other._buckets_array[i]);
+            other._buckets_array[i] = nullptr;
+        }
+        /* other._size = 0; */
+    }
+    return *this;
+}
 
 /* end student code */

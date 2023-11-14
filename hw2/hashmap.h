@@ -1,6 +1,5 @@
 /*
 * Assignment 2: HashMap template interface (STARTER CODE)
-*      TODO: write a comment here.
 */
 
 #ifndef HASHMAP_H
@@ -474,7 +473,64 @@ public:
     M& operator[](const K& key);
 
     /* Milestone 2 headers (you need to declare these) */
-    // TODO: declare headers for copy constructor/assignment, move constructor/assignment
+
+    /*
+     * Copy constructor 
+     * Create an identical copy of the given HashMap.
+     *
+     * Requirements: the given HashMap must have the same <K, M, H> types.
+     *
+     * Usage:
+     *      HashMap<char, int> map1{{'a', 3}, {'b', 5}, {'c', 4}};
+     *      HashMap<char, int> map2(map1);
+     *
+     * Complexity: O(N), N = number of elements in the given HashMap.
+     */
+    HashMap(const HashMap& other);
+
+    /*
+     * Copy assignment
+     * Create an identical copy of the given HashMap.
+     *
+     * Requirements: the given HashMap must have the same <K, M, H> types.
+     *
+     * Usage:
+     *      HashMap<char, int> map1{{'a', 3}, {'b', 5}, {'c', 4}};
+     *      HashMap<char, int> map2;
+     *      map2 = map1;
+     * 
+     * Complexity: O(N), N = number of elements in the given HashMap.
+     */
+    HashMap& operator=(const HashMap& other);
+
+    /*
+     * Move constructor
+     * Move the contents of the given HashMap to this HashMap.
+     *
+     * Requirements: the given HashMap must have the same <K, M, H> types.
+     *
+     * Usage:
+     *      HashMap<char, int> map1{{'a', 3}, {'b', 5}, {'c', 4}};
+     *      HashMap<char, int> map2(std::move(map1));
+     * 
+     * Complexity: O(1)
+     */
+    HashMap(HashMap&& other);
+
+    /*
+     * Move assignment
+     * Move the contents of the given HashMap to this HashMap.
+     *
+     * Requirements: the given HashMap must have the same <K, M, H> types.
+     *
+     * Usage:
+     *      HashMap<char, int> map1{{'a', 3}, {'b', 5}, {'c', 4}};
+     *      HashMap<char, int> map2;
+     *      map2 = std::move(map1);
+     *
+     * Complexity: O(1)
+     */
+    HashMap& operator=(HashMap&& other);
 
 private:
     /*
