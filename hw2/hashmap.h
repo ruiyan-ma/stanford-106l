@@ -513,7 +513,7 @@ public:
      *      HashMap<char, int> map1{{'a', 3}, {'b', 5}, {'c', 4}};
      *      HashMap<char, int> map2(std::move(map1));
      * 
-     * Complexity: O(1)
+     * Complexity: O(N), N = number of elements in the given HashMap.
      */
     HashMap(HashMap&& other);
 
@@ -528,7 +528,7 @@ public:
      *      HashMap<char, int> map2;
      *      map2 = std::move(map1);
      *
-     * Complexity: O(1)
+     * Complexity: O(N), N = number of elements in the given HashMap.
      */
     HashMap& operator=(HashMap&& other);
 
