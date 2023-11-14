@@ -235,6 +235,14 @@ public:
     M& at(const K& key);
 
     /*
+    * Returns a const l-value reference to the mapped value given a key.
+    * If no such element exists, throws exception of type std::out_of_range.
+    *
+    * This overload is used when the HashMap is const.
+    */
+    const M& at(const K& key) const;
+
+    /*
     * Removes all K/M pairs the HashMap.
     *
     * Parameters: none
@@ -266,6 +274,14 @@ public:
      * Complexity: O(1) amortized average case, O(N) worst case, N = number of elements
      */
     iterator find(const K& key);
+
+    /*
+     * Finds the element with the given key, and returns a const_iterator to that element.
+     * If an element is not found, a const_iterator to end() is returned.
+     *
+     * This overload is used when the HashMap is const.
+     */
+    const_iterator find(const K& key) const;
 
     /*
     * Inserts the K/M pair into the HashMap, if the key does not already exist.
@@ -376,6 +392,11 @@ public:
      */
     iterator end();
 
+    /*
+     * Returns a const_iterator to one past the last element.
+     * This overload is used when the HashMap is const.
+     */
+    const_iterator end() const;
 
     /*
     * Function that will print to std::cout the contents of the hash table as
