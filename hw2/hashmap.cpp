@@ -21,22 +21,22 @@ HashMap<K, M, H>::~HashMap() {
 }
 
 template <typename K, typename M, typename H>
-inline size_t HashMap<K, M, H>::size() {
+inline size_t HashMap<K, M, H>::size() const {
     return _size;
 }
 
 template <typename K, typename M, typename H>
-inline bool HashMap<K, M, H>::empty() {
+inline bool HashMap<K, M, H>::empty() const {
     return size() == 0;
 }
 
 template <typename K, typename M, typename H>
-inline float HashMap<K, M, H>::load_factor() {
+inline float HashMap<K, M, H>::load_factor() const {
     return static_cast<float>(size())/bucket_count();
 };
 
 template <typename K, typename M, typename H>
-inline size_t HashMap<K, M, H>::bucket_count() const{
+inline size_t HashMap<K, M, H>::bucket_count() const {
     return _buckets_array.size();
 };
 
@@ -50,7 +50,7 @@ M& HashMap<K, M, H>::at(const K& key) {
 }
 
 template <typename K, typename M, typename H>
-bool HashMap<K, M, H>::contains(const K& key) {
+bool HashMap<K, M, H>::contains(const K& key) const {
     return find_node(key).second != nullptr;
 }
 
@@ -164,7 +164,7 @@ typename HashMap<K, M, H>::iterator HashMap<K, M, H>::erase(typename HashMap<K, 
 }
 
 template <typename K, typename M, typename H>
-    void HashMap<K, M, H>::debug() {
+    void HashMap<K, M, H>::debug() const {
     std::cout << std::setw(30) << std::setfill('-') << '\n' << std::setfill(' ')
           << "Printing debug information for your HashMap implementation\n"
           << "Size: " << size() << std::setw(15) << std::right
