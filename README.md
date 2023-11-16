@@ -4,6 +4,6 @@ Course website: https://web.stanford.edu/class/cs106l/index.html
 
 Finished assignment:
 
-- [ ] Assignment1 Wikiracer (failed to build project)
+- [x] Assignment1 Wikiracer (cannot build project due to cmake errors)
 
 - [x] Assignment2 HashMap

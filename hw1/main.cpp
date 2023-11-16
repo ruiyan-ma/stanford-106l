@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <iostream>     // for cout, cin
 #include <fstream>      // for ifstream
 #include <sstream>      // for stringstream
@@ -31,7 +32,7 @@ using std::unordered_set;   using std::cin;
  *       https://en.wikipedia.org/wiki/Stanford_University
  */
 
-// TODO: ASSIGNMENT 2 TASK 5:
+// ASSIGNMENT 2 TASK 5:
 // Please implement the following function, which should take in two sets of strings
 // and returns the number of common strings between the two sets. You should use 
 // lambdas and std::count_if.
@@ -40,10 +41,8 @@ using std::unordered_set;   using std::cin;
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // BEGIN STUDENT CODE HERE
 int numCommonLinks(const unordered_set<string>& curr_set, const unordered_set<string>& target_set) {
-    // replace all of these lines!
-    (void) target_set;
-    (void) curr_set;
-    return 0; 
+    return std::count_if(curr_set.begin(), curr_set.end(), 
+            [&target_set](const string& s) {return target_set.contains(s);});
 }
 // END STUDENT CODE HERE
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -55,7 +54,7 @@ vector<string> findWikiLadder(const string& start_page, const string& end_page) 
     using container = vector<vector<string>>;
     unordered_set<string> target_set = w.getLinkSet(end_page);
 
-    // TODO: ASSIGNMENT 2 TASK 6:
+    // ASSIGNMENT 2 TASK 6:
     // Please implement the comparator function that will be used in the priority queue.
     // You'll need to consider what variables this lambda will need to capture, as well as
     // what parameters it'll take in. Be sure to use the function you implemented in Task 1!
@@ -64,29 +63,21 @@ vector<string> findWikiLadder(const string& start_page, const string& end_page) 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     // BEGIN STUDENT CODE HERE
     auto cmp_fn = [&w, &target_set](const vector<string>& left, const vector<string>& right) {
-        // replace all of these lines.
-        (void) w;
-        (void) target_set;
-        (void) left;
-        (void) right;
-        return false; // replace this line! make sure to use numCommonLinks.
+        int num1 = numCommonLinks(w.getLinkSet(left.back()), target_set);
+        int num2 = numCommonLinks(w.getLinkSet(right.back()), target_set);
+        return num1 < num2;
     };
     // END STUDENT CODE HERE
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // TODO: ASSIGNMENT 2 TASK 7:
+    // ASSIGNMENT 2 TASK 7:
     // Last exercise! please instantiate the priority queue for this algorithm, called "queue". Be sure 
     // to use your work from Task 2, cmp_fn, to instantiate our queue. 
     // Estimated length: 1 line
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     // BEGIN STUDENT CODE HERE
-    // something like priority_queue<...> queue(...);
-    // please delete ALL 4 of these lines! they are here just for the code to compile.
-    std::priority_queue<vector<string>> queue;
-    throw std::invalid_argument("Not implemented yet.\n");
-    return {};
-
+    std::priority_queue<vector<string>, container, decltype(cmp_fn)> queue(cmp_fn);
     // END STUDENT CODE HERE
     ///////////////////////////////////////////////////////////////////////////////////////////////////
 
